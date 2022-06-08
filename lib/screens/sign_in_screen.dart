@@ -111,158 +111,159 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   child: Form(
                     key: _form,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          _isSignUpMode ? 'Sign up' : 'Sign in',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 30,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
-
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              TextFormField(
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  focusColor: Colors.white,
-                                  label: Text(
-                                    'Email',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
+                          Text(
+                            _isSignUpMode ? 'Sign up' : 'Sign in',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontSize: 30,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
-                                ),
-                                onSaved: (value) {
-                                  _authData['email'] = value!;
-                                },
-                                validator: (value) {
-                                  bool isEmailValid = RegExp(
-                                          r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                                      .hasMatch(value!);
-                                  if (!isEmailValid) {
-                                    return 'Please provide valid e-mail';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                obscureText: true,
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                                controller: _passwordController,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  label: Text(
-                                    'Password',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty || value.length < 5) {
-                                    return 'Password is too short!';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  _authData['password'] = value!;
-                                },
-                              ),
-                              _isSignUpMode
-                                  ? TextFormField(
-                                      validator: _isSignUpMode
-                                          ? (value) {
-                                              if (value !=
-                                                  _passwordController.text) {
-                                                return 'Passwords do not match!';
-                                              }
-                                            }
-                                          : null,
-                                      obscureText: true,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    focusColor: Colors.white,
+                                    label: Text(
+                                      'Email',
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
                                             .secondary,
                                       ),
-                                      decoration: InputDecoration(
-                                        fillColor: Colors.white,
-                                        label: Text(
-                                          'Repeat Password',
-                                          style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Container(),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                    Theme.of(context).colorScheme.primary,
-                                  ),
-                                ),
-                                onPressed: _submitForm,
-                                child: Container(
-                                  margin: EdgeInsets.all(10),
-                                  child: Text(
-                                    _isSignUpMode ? 'Sing up' : 'Sign in',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      fontSize: 20,
                                     ),
                                   ),
+                                  onSaved: (value) {
+                                    _authData['email'] = value!;
+                                  },
+                                  validator: (value) {
+                                    bool isEmailValid = RegExp(
+                                            r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                        .hasMatch(value!);
+                                    if (!isEmailValid) {
+                                      return 'Please provide valid e-mail';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                              ),
-                              SizedBox(
-                                height: 12,
-                              ),
-                              TextButton(
-                                style: ButtonStyle(),
-                                onPressed: () {
-                                  setState(() {
-                                    _isSignUpMode = !_isSignUpMode;
-                                  });
-                                },
-                                child: Text(
-                                  _isSignUpMode ? 'Sing in' : 'Sign up',
+                                TextFormField(
+                                  obscureText: true,
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.secondary,
-                                    fontSize: 18,
+                                  ),
+                                  controller: _passwordController,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    label: Text(
+                                      'Password',
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty || value.length < 5) {
+                                      return 'Password is too short!';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _authData['password'] = value!;
+                                  },
+                                ),
+                                _isSignUpMode
+                                    ? TextFormField(
+                                        validator: _isSignUpMode
+                                            ? (value) {
+                                                if (value !=
+                                                    _passwordController.text) {
+                                                  return 'Passwords do not match!';
+                                                }
+                                              }
+                                            : null,
+                                        obscureText: true,
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                        ),
+                                        decoration: InputDecoration(
+                                          fillColor: Colors.white,
+                                          label: Text(
+                                            'Repeat Password',
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Container(),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                  onPressed: _submitForm,
+                                  child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    child: Text(
+                                      _isSignUpMode ? 'Sing up' : 'Sign in',
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        fontSize: 20,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                                SizedBox(
+                                  height: 12,
+                                ),
+                                TextButton(
+                                  style: ButtonStyle(),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isSignUpMode = !_isSignUpMode;
+                                    });
+                                  },
+                                  child: Text(
+                                    _isSignUpMode ? 'Sing in' : 'Sign up',
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.secondary,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
